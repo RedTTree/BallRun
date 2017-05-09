@@ -1,0 +1,23 @@
+<Solution>
+  <PropertyGroup Name="BallRun" Version="3.10.0.0" Type="CocosStudio" />
+  <SolutionFolder>
+    <Group ctype="ResourceGroup">
+      <RootFolder Name=".">
+        <Folder Name="res">
+          <Image Name="ball.png" />
+          <Image Name="changebg.png" />
+          <Image Name="head.png" />
+          <Image Name="headbg.png" />
+          <Image Name="star_on.png" />
+          <Fnt Name="string.fnt" />
+          <Image Name="text_mainchell.png" />
+          <Image Name="uni_bg.png" />
+          <TTF Name="YAhei.ttf" />
+        </Folder>
+        <Image Name="HelloWorld.png" />
+        <Project Name="main.csd" Type="Scene" />
+        <Project Name="MainScene.csd" Type="Scene" />
+      </RootFolder>
+    </Group>
+  </SolutionFolder>
+</Solution>
