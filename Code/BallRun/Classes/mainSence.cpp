@@ -8,7 +8,6 @@ using namespace cocostudio::timeline;
 using namespace ui;
 
 
-
 Scene* mainSence::createScene()
 {
    
@@ -30,11 +29,11 @@ bool mainSence::init()
     addChild(rootNode);
 	
 	Button* game = (Button*)rootNode->getChildByName("Button_1");
-	game->addTouchEventListener(this, toucheventselector(mainSence::onSwitch));
+	game->addTouchEventListener(CC_CALLBACK_2(mainSence::touchButton, this));
 
     return true;
 }
 
-void mainSence::onSwitch(Ref*, TouchEventType type){
+void mainSence::touchButton(Ref *pSender, Widget::TouchEventType type){
 	printf("onchange");
 }

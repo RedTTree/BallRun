@@ -2,6 +2,10 @@
 #define __HELLOWORLD_SCENE_H__
 
 #include "cocos2d.h"
+#include "cocostudio/CocoStudio.h"
+#include "ui/CocosGUI.h"
+USING_NS_CC;
+using namespace ui;
 
 class mainSence : public cocos2d::Layer
 {
@@ -11,7 +15,7 @@ public:
 
     // Here's a difference. Method 'init' in cocos2d-x returns bool, instead of returning 'id' in cocos2d-iphone
     virtual bool init();
-	void onSwitch();
+	void touchButton(Ref *pSender, Widget::TouchEventType type);
 
     // implement the "static create()" method manually
     CREATE_FUNC(mainSence);
