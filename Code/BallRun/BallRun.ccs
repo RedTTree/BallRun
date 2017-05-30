@@ -6,6 +6,7 @@
         <Folder Name="res">
           <Image Name="ball.png" />
           <Image Name="changebg.png" />
+          <Image Name="frame_on.png" />
           <Image Name="head.png" />
           <Image Name="headbg.png" />
           <Image Name="star_on.png" />
