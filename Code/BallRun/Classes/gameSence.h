@@ -1,5 +1,5 @@
-#ifndef __HELLOWORLD_SCENE_H__
-#define __HELLOWORLD_SCENE_H__
+#ifndef __GAME_SCENE_H__
+#define __GAME_SCENE_H__
 
 #include "cocos2d.h"
 #include <algorithm>
@@ -9,9 +9,9 @@
 USING_NS_CC;
 using namespace ui;
 using namespace std;
+USING_NS_CC;
 
-
-class mainSence : public cocos2d::Layer
+class gameSence : public cocos2d::Layer
 {
 public:
 
@@ -45,7 +45,7 @@ public:
 	virtual bool init();
 
 	// implement the "static create()" method manually
-	CREATE_FUNC(mainSence);
+	CREATE_FUNC(gameSence);
 private:
 	int poi = 1;
 	int succe = 1;
@@ -57,7 +57,6 @@ private:
 	Point curball_point;
 	Point cur_point;
 	PhysicsWorld* _world;
-
 
 };
 

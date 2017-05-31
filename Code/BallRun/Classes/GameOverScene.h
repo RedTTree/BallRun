@@ -2,6 +2,12 @@
 #define __SampleGame1__GameOverScene__
 
 #include "cocos2d.h"
+#include <algorithm>
+#include "cocostudio/CocoStudio.h"
+#include "ui/CocosGUI.h"
+USING_NS_CC;
+using namespace ui;
+using namespace std;
 
 class GameOverLayer : public cocos2d::LayerColor
 {
@@ -9,6 +15,8 @@ public:
     GameOverLayer():_label(NULL) {};
     virtual ~GameOverLayer();
     bool init();
+	void btnRetryed(Ref *pSender, Widget::TouchEventType type);
+	void btnNexted(Ref *pSender, Widget::TouchEventType type);
     CREATE_FUNC(GameOverLayer);
     
     void gameOverDone();

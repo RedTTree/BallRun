@@ -1,9 +1,9 @@
-#include "mainSence.h"
+#include "gameSence.h"
 #include "GameOverScene.h"
 
 USING_NS_CC;
 
-Scene* mainSence::createScene()
+Scene* gameSence::createScene()
 {
 	// 'scene' is an autorelease object
 	auto scene = Scene::createWithPhysics();
@@ -14,7 +14,7 @@ Scene* mainSence::createScene()
 	scene->getPhysicsWorld()->setGravity(gravity);
 	//scene->getPhysicsWorld()->setSpeed(80);//设置速度
 	// 'layer' is an autorelease object
-	auto layer = mainSence::create();
+	auto layer = gameSence::create();
 
 	layer->setPhyWorld(scene->getPhysicsWorld());
 
@@ -26,7 +26,7 @@ Scene* mainSence::createScene()
 }
 
 // on "init" you need to initialize your instance
-bool mainSence::init()
+bool gameSence::init()
 {
 	//////////////////////////////
 	// 1. super init first
@@ -44,29 +44,34 @@ bool mainSence::init()
 	this->addChild(m_timer);
 
 	auto btnRetry = Button::create("button1.png", "button1.png", "button1.png");
-	btnRetry->addTouchEventListener(CC_CALLBACK_2(mainSence::btnRetryed, this));
-	btnRetry->setPosition(cocos2d::Vec2(1032.16,50.34));
+	btnRetry->addTouchEventListener(CC_CALLBACK_2(gameSence::btnRetryed, this));
+	btnRetry->setPosition(cocos2d::Vec2(1032.16,55.34));
 	this->addChild(btnRetry);
 	btnRetry->setPressedActionEnabled(true);
 	auto btnBack = Button::create("button3.png", "button3.png", "button3.png");
-	btnBack->addTouchEventListener(CC_CALLBACK_2(mainSence::btnBacked, this));
-	btnBack->setPosition(cocos2d::Vec2(104.78, 50.34));
+	btnBack->addTouchEventListener(CC_CALLBACK_2(gameSence::btnBacked, this));
+	btnBack->setPosition(cocos2d::Vec2(104.78, 55.34));
 	this->addChild(btnBack);
 	btnBack->setPressedActionEnabled(true);
 
 
 	Point verts1[] = {
-		Point(61.59, 442.52),
-		Point(56.03, 206.17),
-		Point(352.15, 29.6),
-		Point(783.14, 29.6),
-		Point(1091.78, 206.17),
-		Point(1097.33, 438.33),
-		Point(799.80, 616.28),
-		Point(366.03, 616.28)
+		Point(178.48, 599.31),
+		Point(92.53, 443.96),
+		Point(92.53, 190),
+		Point(269.53, 190),
+		Point(269.53, 49.58),
+		Point(877.91, 46.5),
+		Point(880.99, 182.07),
+		Point(1079.66, 191.32), 
+		Point(917.99, 605.74),
+		Point(614.51, 605.74),
+		Point(614.51, 302.25),
+		Point(511.30, 302.25),
+		Point(511.30, 599.31)
 	};
 	edgeSp = Sprite::create();
-	auto boundBody = PhysicsBody::createEdgePolygon(verts1, 8);
+	auto boundBody = PhysicsBody::createEdgePolygon(verts1, 13);
 	edgeSp->setPosition(Point(0, 0));
 	boundBody->getShape(0)->setRestitution(1.0f);
 	boundBody->getShape(0)->setFriction(0.0f);
@@ -75,7 +80,7 @@ bool mainSence::init()
 	this->addChild(edgeSp);
 	edgeSp->setTag(0);
 
-paddle = Sprite::create("bg.png");	
+paddle = Sprite::create("bg2.png");	
 paddle->setScale(1);
 paddle->setAnchorPoint(ccp(0, 0.5));
 paddle->setPosition(Point(0, visibleSize.height / 2));
@@ -83,7 +88,7 @@ this->addChild(paddle,-1);
 
 auto lab1 = Sprite::create("tiao.png");
 lab1->setAnchorPoint(ccp(0.5, 0.5));
-lab1->setPosition(Point(639.52, 379.8));
+lab1->setPosition(Point(568, 100));
 auto labBody = PhysicsBody::createBox(lab1->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT);
 labBody->getShape(0)->setRestitution(1.0f);
 labBody->getShape(0)->setFriction(0.0f);
@@ -92,13 +97,19 @@ labBody->setRotationEnable(true);
 labBody->setRotationOffset(130);
 labBody->setDynamic(false);
 lab1->setPhysicsBody(labBody);
+CCActionInterval *moveAction = CCRepeatForever::create((CCActionInterval *)CCSequence::create(
+	MoveBy::create(1, Vec2(0, 145)),
+	MoveBy::create(1, Vec2(0, -145)),
+	NULL));
+lab1->runAction(moveAction);
+//lab1->runAction(CCRepeatForever::create(CCSequence::create(CCMoveBy::create(0.5, Vec2(0, 145)), CCMoveBy::create(0.5, Vec2(0, -145)))));
 this->addChild(lab1);
 
 auto lab2 = Sprite::create("tiao.png");
 lab2->setAnchorPoint(ccp(0.5, 0.5));
-lab2->setPosition(Point(490, 249.98));
-
-auto labBody2 = PhysicsBody::createBox(lab2->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT);
+lab2->setScaleX(0.5);
+lab2->setPosition(Point(799.33, 248.630));
+auto labBody2 = PhysicsBody::createBox(lab1->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT);
 labBody2->getShape(0)->setRestitution(1.0f);
 labBody2->getShape(0)->setFriction(0.0f);
 labBody2->getShape(0)->setDensity(10.0f);
@@ -106,11 +117,17 @@ labBody2->setRotationEnable(true);
 labBody2->setRotationOffset(130);
 labBody2->setDynamic(false);
 lab2->setPhysicsBody(labBody2);
+CCActionInterval *moveAction2 = CCRepeatForever::create((CCActionInterval *)CCSequence::create(
+	MoveBy::create(1, Vec2(0, 120)),
+	MoveBy::create(1, Vec2(0, -120)),
+	NULL));
+lab2->runAction(moveAction2);
+//lab1->runAction(CCRepeatForever::create(CCSequence::create(CCMoveBy::create(0.5, Vec2(0, 145)), CCMoveBy::create(0.5, Vec2(0, -145)))));
 this->addChild(lab2);
 
 
 auto mball = Sprite::create("Ball.png", Rect(0, 0, 52, 52));
-mball->setPosition(visibleSize.width / 2 , 320);
+mball->setPosition(799.33, 488.63);
 auto mballBody = PhysicsBody::createCircle(mball->getContentSize().width / 2.);
 mballBody->getShape(0)->setRestitution(1.0f);
 mballBody->getShape(0)->setFriction(0.0f);
@@ -154,12 +171,12 @@ this->addChild(mball);
 	m_streak->runAction(colorAction);
 
 	setTouchEnabled(true);
-	this->schedule(schedule_selector(mainSence::tick), 0);
+	this->schedule(schedule_selector(gameSence::tick), 0);
 	this->scheduleUpdate();
 	return true;
 }
 
-void mainSence::tick(float dt)
+void gameSence::tick(float dt)
 {
 	if (succe == 0){
 		auto gameOverScene = GameOverScene::create();
@@ -170,25 +187,25 @@ void mainSence::tick(float dt)
 	}
 }
 
-void mainSence::onEnter()
+void gameSence::onEnter()
 {
 	Layer::onEnter();
 	
 	auto touch_listener = EventListenerTouchOneByOne::create();
 	auto contactListener = EventListenerPhysicsContact::create();
 	touch_listener->setSwallowTouches(true);
-	touch_listener->onTouchBegan = CC_CALLBACK_2(mainSence::onTouchBegan, this);
-	touch_listener->onTouchMoved = CC_CALLBACK_2(mainSence::onTouchMoved, this);
-	touch_listener->onTouchEnded = CC_CALLBACK_2(mainSence::onTouchEnded, this);
-	touch_listener->onTouchCancelled = CC_CALLBACK_2(mainSence::onTouchCancelled, this);
-	contactListener->onContactBegin = CC_CALLBACK_1(mainSence::onContactBegin, this);
+	touch_listener->onTouchBegan = CC_CALLBACK_2(gameSence::onTouchBegan, this);
+	touch_listener->onTouchMoved = CC_CALLBACK_2(gameSence::onTouchMoved, this);
+	touch_listener->onTouchEnded = CC_CALLBACK_2(gameSence::onTouchEnded, this);
+	touch_listener->onTouchCancelled = CC_CALLBACK_2(gameSence::onTouchCancelled, this);
+	contactListener->onContactBegin = CC_CALLBACK_1(gameSence::onContactBegin, this);
 	_eventDispatcher->addEventListenerWithSceneGraphPriority(contactListener, this);
-	//contactListener->onContactBegin = CC_CALLBACK_1(mainSence::onContactBegin, this);
+	//contactListener->onContactBegin = CC_CALLBACK_1(gameSence::onContactBegin, this);
 	//_eventDispatcher->addEventListenerWithSceneGraphPriority(contactListener, this);
 	_eventDispatcher->addEventListenerWithSceneGraphPriority(touch_listener, this);
 
 }
-bool mainSence::onContactBegin(cocos2d::PhysicsContact& contact){
+bool gameSence::onContactBegin(cocos2d::PhysicsContact& contact){
 	auto body_1 = (Sprite*)contact.getShapeA()->getBody()->getNode(); //发生碰撞的物体1
 	auto body_2 = (Sprite*)contact.getShapeB()->getBody()->getNode(); //发生碰撞的物体2
 	log("contact");
@@ -215,40 +232,40 @@ bool mainSence::onContactBegin(cocos2d::PhysicsContact& contact){
 	return true;
 }
 
-void mainSence::btnRetryed(Ref *pSender, Widget::TouchEventType type)
+void gameSence::btnRetryed(Ref *pSender, Widget::TouchEventType type)
 {
 	if (type == Widget::TouchEventType::ENDED)
 	{
 		log("touch ended");
-		Director::getInstance()->replaceScene(mainSence::createScene());
+		Director::getInstance()->replaceScene(gameSence::createScene());
 	}
 }
 
-void mainSence::btnBacked(Ref *pSender, Widget::TouchEventType type)
+void gameSence::btnBacked(Ref *pSender, Widget::TouchEventType type)
 {
 	if (type == Widget::TouchEventType::ENDED)
 	{
 		log("touch ended");
-		Director::getInstance()->replaceScene(mainSence::createScene());
+		Director::getInstance()->replaceScene(gameSence::createScene());
 	}
 }
 
-bool mainSence::onTouchBegan(Touch *touch, Event *unused_event){
+bool gameSence::onTouchBegan(Touch *touch, Event *unused_event){
 	Point location = touch->getLocation();
 	pre_point = cur_point = location;
 	return true;
 }
 
 
-void mainSence::onTouchCancelled(Touch *touch, Event *unused_event){
+void gameSence::onTouchCancelled(Touch *touch, Event *unused_event){
 
 	return;
 }
 
-void mainSence::onTouchMoved(Touch *touch, Event *unused_event){
+void gameSence::onTouchMoved(Touch *touch, Event *unused_event){
 
 }
-void mainSence::onTouchEnded(Touch *touch, Event *unused_event){
+void gameSence::onTouchEnded(Touch *touch, Event *unused_event){
 	/*
 	auto node = getChildByTag(1000);
 	if (node ){
@@ -264,9 +281,9 @@ void mainSence::onTouchEnded(Touch *touch, Event *unused_event){
 	poi = 1;
 	Point location = touch->getLocation();
 	cur_point = location;
-	
+
 }
-void mainSence::draw(Renderer *renderer, const Mat4 &transform, uint32_t flags){
+void gameSence::draw(Renderer *renderer, const Mat4 &transform, uint32_t flags){
 
 	DrawPrimitives::setDrawColor4B(0, 255, 255, 255);
 	glLineWidth(8);
@@ -285,7 +302,7 @@ void mainSence::draw(Renderer *renderer, const Mat4 &transform, uint32_t flags){
 		poi =1;
 	}
 }
-void mainSence::update(float dt)
+void gameSence::update(float dt)
 {  
 
 	if (ball && succe ==1)

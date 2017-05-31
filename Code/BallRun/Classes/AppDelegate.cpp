@@ -1,5 +1,6 @@
 #include "AppDelegate.h"
 #include "mainSence.h"
+#include "gameSence.h"
 
 USING_NS_CC;
 
