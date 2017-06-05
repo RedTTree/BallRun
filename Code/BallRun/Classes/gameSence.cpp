@@ -1,14 +1,13 @@
 #include "gameSence.h"
 #include "GameOverScene.h"
 
-USING_NS_CC;
 
 Scene* gameSence::createScene()
 {
 	// 'scene' is an autorelease object
 	auto scene = Scene::createWithPhysics();
 
-	scene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
+	//scene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
 
 	Vect gravity(0.0f, 0.0f);
 	scene->getPhysicsWorld()->setGravity(gravity);
@@ -181,7 +180,10 @@ void gameSence::tick(float dt)
 	if (succe == 0){
 		auto gameOverScene = GameOverScene::create();
 		char* mtime = new char[10];
-		sprintf(mtime, "win: %d", m_timer->gettime());
+		int pTime = 3000 - (int)m_timer->gettime();
+		int number = (int)m_timer->gettime() / 3;
+		sprintf(mtime, "WIN!!LEF:%d : %d---SCORE:%d", (int)m_timer->gettime() / 60, (int)m_timer->gettime() % 60, (int)number);
+		log(mtime);
 		gameOverScene->getLayer()->getLabel()->setString(mtime);
 		Director::getInstance()->replaceScene(gameOverScene);
 	}

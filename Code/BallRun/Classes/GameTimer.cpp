@@ -29,9 +29,9 @@ void GameTimer::update(float delta)
 {
 	pTime -= delta;
 	char* mtime = new char[10];
+	char* mmtime = new char[10000];
 	//此处只是显示分钟数和秒数  自己可以定义输出时间格式  
 	sprintf(mtime, "%d : %d", (int)pTime / 60, (int)pTime % 60);
-	log(pTime);
 	label->setString(mtime);
 }
 

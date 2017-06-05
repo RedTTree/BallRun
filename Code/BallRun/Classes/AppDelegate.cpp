@@ -1,6 +1,5 @@
 #include "AppDelegate.h"
 #include "mainSence.h"
-#include "gameSence.h"
 
 USING_NS_CC;
 
@@ -28,7 +27,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
     auto director = Director::getInstance();
     auto glview = director->getOpenGLView();
     if(!glview) {
-        glview = GLViewImpl::createWithRect("BallRun", Rect(0, 0, 1136, 640));
+        glview = GLViewImpl::createWithRect("BAO", Rect(0, 0,1136, 640));
         director->setOpenGLView(glview);
     }
 
@@ -43,7 +42,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
     FileUtils::getInstance()->addSearchPath("res");
 
     // create a scene. it's an autorelease object
-    auto scene = mainSence::createScene();
+	auto scene = mainSence::createScene();
 
     // run
     director->runWithScene(scene);
